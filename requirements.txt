@@ -13,9 +13,13 @@ MarkupSafe==1.1.1
 mkdocs==1.1.2
 mkdocs-bootstrap4==0.1.4
 mkdocs-git-committers-plugin==0.1.10
+mkdocs-material==5.5.13
+mkdocs-material-extensions==1.0.1
 nltk==3.5
 PyGithub==1.53
+Pygments==2.7.1
 PyJWT==1.7.1
+pymdown-extensions==8.0
 PyYAML==5.3.1
 regex==2020.7.14
 requests==2.24.0

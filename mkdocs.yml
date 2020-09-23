@@ -1,9 +1,43 @@
 site_name: Interview notes
+repo_url: https://github.com/fadeawaylove/interview_mkdocs
+site_author: 呆瓜
 
-theme: bootstrap4
+theme:
+  name: material
+  palette:
+    primary: black
+    scheme: default
+    accent: red
+  features:
+    - header.autohide
+    - instant
+#    - navigation.expand
+    - tabs
+    - toc.autohide
+    - search.highlight
+  logo: assets/logo.png
 
 
-pages:
-  - Home: index.md
-  - About: index.md
-  - 算法: algorithm/index.md
+markdown_extensions:
+  - extra
+  - tables
+  - fenced_code
+
+extra_javascript:
+#  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full
+  - mathjaxhelper.js
+
+plugins:
+  - search
+
+
+nav:
+  - 算法:
+      - algorithm/动态规划.md
+      - algorithm/回溯法.md
+      - Page 1.3
+  - Redis:
+      - Page 2.1
+      - Page 2.2
+      - Page 2.3
