@@ -1,1 +1,9 @@
-site_name: My Docs
+site_name: Interview notes
+
+theme: bootstrap4
+
+
+pages:
+  - Home: index.md
+  - About: index.md
+  - 算法: algorithm/index.md
