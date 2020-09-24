@@ -1,9 +1,17 @@
+# Project information
 site_name: Interview notes
-repo_url: https://github.com/fadeawaylove/interview_mkdocs
+site_url: https://fadeawaylove.github.io/interview_mkdocs
 site_author: 呆瓜
+site_description: >-
+  一个学习知识的记录
+
+# Repository
+repo_name: interview_mkdocs
+repo_url: https://github.com/fadeawaylove/interview_mkdocs
 
 theme:
   name: material
+  custom_dir: material
   palette:
     primary: black
     scheme: default
@@ -11,7 +19,7 @@ theme:
   features:
     - header.autohide
     - instant
-#    - navigation.expand
+    - navigation.expand
     - tabs
     - toc.autohide
     - search.highlight
@@ -22,22 +30,36 @@ markdown_extensions:
   - extra
   - tables
   - fenced_code
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_javascript:
-#  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - mathjaxhelper.js
+
+extra_css:
+  - customer.css
 
 plugins:
   - search
 
-
+# Page tree
 nav:
+  - 主页: index.md
   - 算法:
       - algorithm/动态规划.md
       - algorithm/回溯法.md
-      - Page 1.3
+#      - Page 1.3
   - Redis:
-      - Page 2.1
-      - Page 2.2
-      - Page 2.3
+      - redis/index.md
+#      - Page 2.2
+#      - Page 2.3
