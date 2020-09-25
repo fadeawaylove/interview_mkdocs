@@ -12,19 +12,21 @@ repo_url: https://github.com/fadeawaylove/interview_mkdocs
 theme:
   name: material
   custom_dir: material
+  language: zh
   palette:
     primary: black
     scheme: default
     accent: red
   features:
+    - search.highlight
     - header.autohide
     - instant
     - navigation.expand
     - tabs
     - toc.autohide
-    - search.highlight
   logo: assets/logo.png
-
+  include_search_page: false
+  search_index_only: true
 
 markdown_extensions:
   - extra
@@ -52,13 +54,15 @@ extra_css:
 plugins:
   - search
 
+
 # Page tree
 nav:
   - 主页: index.md
+  - 简介: intro.md
   - 算法:
       - algorithm/动态规划.md
       - algorithm/回溯法.md
-#      - Page 1.3
+  #      - Page 1.3
   - Redis:
       - redis/index.md
 #      - Page 2.2
