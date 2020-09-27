@@ -55,6 +55,23 @@ plugins:
   - search
 
 
+# 提交时自动构建和发布
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material
+      - run: mkdocs gh-deploy --force
+
+
 # Page tree
 nav:
   - 主页:
