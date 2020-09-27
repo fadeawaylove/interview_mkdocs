@@ -11,7 +11,7 @@ repo_url: https://github.com/fadeawaylove/interview_mkdocs
 
 theme:
   name: material
-  custom_dir: material
+#  custom_dir: material
   language: zh
   palette:
     primary: black
@@ -48,8 +48,8 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - mathjaxhelper.js
 
-extra_css:
-  - customer.css
+#extra_css:
+#  - customer.css
 
 plugins:
   - search
