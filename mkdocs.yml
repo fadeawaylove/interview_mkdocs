@@ -70,3 +70,9 @@ nav:
       - redis/index.md
 #      - Page 2.2
 #      - Page 2.3
+  - 文章:
+      - 我是你爸爸:
+        - 1: posts/index.md
+        - 2: posts/index.md
+  - Python:
+      - python/index.md
