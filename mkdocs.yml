@@ -53,8 +53,8 @@ extra_javascript:
   - mathjaxhelper.js
 
 # 额外添加的css
-extra_css:
-  - customer.css
+# extra_css:
+#   - customer.css
 
 plugins:
   - search
