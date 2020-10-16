@@ -71,6 +71,7 @@ nav:
       - algorithm/回溯法.md
   - Redis:
       - redis/安装使用.md
+      - redis/源码调试.md
       - 基础数据结构:
           - redis/数据结构/字符串.md
 
