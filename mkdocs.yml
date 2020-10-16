@@ -11,7 +11,7 @@ repo_url: https://github.com/fadeawaylove/interview_mkdocs
 
 theme:
   name: material
-#  custom_dir: material
+  #  custom_dir: material
   language: zh
   palette:
     primary: black
@@ -22,6 +22,7 @@ theme:
     - header.autohide
     - instant
     - navigation.expand
+    - navigation.instant
     - tabs
     - toc.autohide
   logo: assets/logo.png
@@ -29,6 +30,9 @@ theme:
   search_index_only: true
 
 markdown_extensions:
+  - toc:
+      toc_depth: 2
+      permalink: true
   - extra
   - tables
   - fenced_code
@@ -48,30 +52,31 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - mathjaxhelper.js
 
-#extra_css:
-#  - customer.css
+# 额外添加的css
+extra_css:
+  - customer.css
 
 plugins:
   - search
 
 
-
-
-
 # Page tree
 nav:
   - 主页:
-    - 简介: index.md
+      - 简介: index.md
+  - 书籍:
+      - Redis: books/redis.md
   - 算法:
       - algorithm/动态规划.md
       - algorithm/回溯法.md
   - Redis:
-      - redis/index.md
-#      - Page 2.2
-#      - Page 2.3
+      - redis/安装使用.md
+      - 基础数据结构:
+          - redis/数据结构/字符串.md
+
   - 文章:
       - 我是你爸爸:
-        - 1: posts/index.md
-        - 2: posts/index.md
+          - 1: posts/index.md
+          - 2: posts/index.md
   - Python:
       - python/index.md
