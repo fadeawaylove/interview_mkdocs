@@ -131,3 +131,6 @@ dmypy.json
 # 编辑器
 .idea
 .vscode
+
+# 其它
+.DS_Store
