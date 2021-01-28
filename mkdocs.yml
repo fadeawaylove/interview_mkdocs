@@ -80,4 +80,4 @@ nav:
           - 1: posts/index.md
           - 2: posts/index.md
   - Python:
-      - python/index.md
+      - python基础: python/基础.md
