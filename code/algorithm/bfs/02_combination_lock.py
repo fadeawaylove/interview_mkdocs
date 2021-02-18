@@ -1,4 +1,5 @@
 # 解开密码锁的最少次数
+import copy
 from typing import List
 
 
@@ -20,8 +21,7 @@ def combination_lock(deadends: List[str], target: str):
     if target in deadends:
         return -1
     q = ["0000"]
-    visited = []
-    visited.extend(deadends)
+    visited = copy.copy(deadends)
     steps = 0
     while q:
         size = len(q)
@@ -32,20 +32,19 @@ def combination_lock(deadends: List[str], target: str):
             if cur_num == target:
                 return steps
 
+            visited.append(cur_num)
             for i in range(4):
                 pnum = plus_num(cur_num, i)
                 if pnum not in visited:
                     q.append(plus_num(cur_num, i))
-                    visited.append(pnum)
                 mnum = minus_num(cur_num, i)
-                if pnum not in visited:
+                if mnum not in visited:
                     q.append(mnum)
-                    visited.append(mnum)
         steps += 1
 
     return -1
 
 
-deadends, target = ["0201", "0101", "0102", "1212", "2002"], "0202"
-# deadends, target = ["8888", "0009"]
+# deadends, target = ["0201", "0101", "0102", "1212", "2002"], "0202"
+deadends, target = ["8888"], "0038"
 print(combination_lock(deadends, target))
