@@ -25,12 +25,14 @@ def maxProfit(prices: List[int]) -> int:
     dp_i_1 = -prices[0]  # 今天持有股票的最大利润
 
     for i in range(1, len(prices)):
+        temp = dp_i_0
         # 今天未持有 = max(昨天未持有， 昨天持有+今天现价)
-        dp_i_0 = max(dp_i_0, dp_i_1+prices[i])
+        dp_i_0 = max(dp_i_0, dp_i_1 + prices[i])
         # 今日持有 = max(昨天持有， -今天现价)
-        dp_i_1 = max(dp_i_1, -prices[i])
+        dp_i_1 = max(dp_i_1, temp - prices[i])
 
     return dp_i_0
 
 
-print(maxProfit([7, 1, 5, 3, 6, 4]))
+print(maxProfit([7, 6, 4, 3, 1]))
+print(maxProfit([1, 2, 3, 4, 5]))
