@@ -38,3 +38,29 @@ class Solution:
             p = p.right
 
         p.right = right
+
+
+# class Solution:
+#     def flatten(self, root: TreeNode) -> None:
+#         """
+#         Do not return anything, modify root in-place instead.
+#         """
+#
+#         def flat(node: TreeNode):
+#             if not node:
+#                 return node
+#             # 其实就是先根遍历，然后再加到根节点上
+#             left = node.left
+#             right = node.right
+#
+#             # 左子树变为链表，并赋值给node右子树
+#             node.right = flat(node.left)
+#             # 原左子树变为空
+#             node.left = None
+#             # 找到新右子树的最右节点
+#             cur = node
+#             while cur.right:
+#                 cur = cur.right
+#             cur.right = flat(right)
+#             return node
+#         flat(root)
