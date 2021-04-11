@@ -67,6 +67,8 @@ nav:
   - 书籍:
       - Redis: books/redis.md
   - 算法:
+      - 数据结构:
+          - 数组: algorithm/类型_数组.md
       - algorithm/递归.md
       - algorithm/动态规划.md
       - algorithm/回溯法.md
