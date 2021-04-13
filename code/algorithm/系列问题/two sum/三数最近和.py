@@ -30,7 +30,7 @@ class Solution:
         return distance
 
 
-Solution().threeSumClosest(
+print(Solution().threeSumClosest(
     [0, 0, 0],
     1
-)
+))
