@@ -72,6 +72,7 @@ nav:
       - algorithm/递归.md
       - algorithm/动态规划.md
       - algorithm/回溯法.md
+      - algorithm/BFS.md
   - Redis:
       - redis/安装使用.md
       - redis/源码调试.md
@@ -87,3 +88,5 @@ nav:
       - python技巧: python/技巧.md
   - 面试:
       - 面试题/网络.md
+      - 面试题/算法.md
+      
