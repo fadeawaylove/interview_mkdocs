@@ -73,6 +73,7 @@ nav:
       - algorithm/动态规划.md
       - algorithm/回溯法.md
       - algorithm/BFS.md
+      - algorithm/贪心算法.md
   - Redis:
       - redis/安装使用.md
       - redis/源码调试.md
