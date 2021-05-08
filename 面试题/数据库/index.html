@@ -1,0 +1,1367 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一个学习知识的记录">
+      
+      
+        <link rel="canonical" href="https://fadeawaylove.github.io/interview_mkdocs/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+      
+      
+        <meta name="author" content="呆瓜">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>数据库 - Study notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#000000">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#redis" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-header-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Study notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              数据库
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          主页
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../python/%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          Python
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../books/redis/" class="md-tabs__link">
+          书籍
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../algorithm/%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" class="md-tabs__link">
+          算法
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../redis/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-tabs__link">
+          Redis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../posts/" class="md-tabs__link">
+          文章
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../%E7%BD%91%E7%BB%9C/" class="md-tabs__link md-tabs__link--active">
+          面试
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Study notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      主页
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="主页" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        主页
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E5%9F%BA%E7%A1%80/" title="python基础" class="md-nav__link">
+      python基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E9%AB%98%E7%BA%A7/" title="python技巧" class="md-nav__link">
+      python技巧
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      书籍
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="书籍" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        书籍
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../books/redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      算法
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="算法" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        算法
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" title="数组" class="md-nav__link">
+      数组
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/%E9%80%92%E5%BD%92/" title="递归" class="md-nav__link">
+      递归
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划" class="md-nav__link">
+      动态规划
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="回溯算法" class="md-nav__link">
+      回溯算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/BFS/" title="广度优先" class="md-nav__link">
+      广度优先
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algorithm/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" title="贪心算法" class="md-nav__link">
+      贪心算法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Redis
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Redis" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Redis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" title="安装使用" class="md-nav__link">
+      安装使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95/" title="源码调试" class="md-nav__link">
+      源码调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+    
+    <label class="md-nav__link" for="nav-5-3">
+      基础数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="基础数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        基础数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串" class="md-nav__link">
+      字符串
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      文章
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="文章" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        文章
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      我是你爸爸
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="我是你爸爸" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        <span class="md-nav__icon md-icon"></span>
+        我是你爸爸
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../posts/" title="1" class="md-nav__link">
+      1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../posts/" title="2" class="md-nav__link">
+      2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      面试
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="面试" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        面试
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E7%BD%91%E7%BB%9C/" title="网络" class="md-nav__link">
+      网络
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E7%AE%97%E6%B3%95/" title="算法" class="md-nav__link">
+      算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统" class="md-nav__link">
+      操作系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="数据库" class="md-nav__link md-nav__link--active">
+      数据库
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    数据持久化
+  </a>
+  
+    <nav class="md-nav" aria-label="数据持久化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdb" class="md-nav__link">
+    RDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aof" class="md-nav__link">
+    AOF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    混合持久化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    参考回答
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_1" class="md-nav__link">
+    Redis有哪些数据结构？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_2" class="md-nav__link">
+    Redis分布式锁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    延时队列
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_3" class="md-nav__link">
+    是否使用过Redis集群，集群的原理是什么？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_4" class="md-nav__link">
+    Redis的同步机制了解么？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    参考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    Mysql
+  </a>
+  
+    <nav class="md-nav" aria-label="Mysql">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql_1" class="md-nav__link">
+    Mysql事务隔离级别
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvcc" class="md-nav__link">
+    MVCC原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    锁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    分库分表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    参考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    数据持久化
+  </a>
+  
+    <nav class="md-nav" aria-label="数据持久化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdb" class="md-nav__link">
+    RDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aof" class="md-nav__link">
+    AOF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    混合持久化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    参考回答
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_1" class="md-nav__link">
+    Redis有哪些数据结构？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_2" class="md-nav__link">
+    Redis分布式锁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    延时队列
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_3" class="md-nav__link">
+    是否使用过Redis集群，集群的原理是什么？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis_4" class="md-nav__link">
+    Redis的同步机制了解么？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    参考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    Mysql
+  </a>
+  
+    <nav class="md-nav" aria-label="Mysql">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql_1" class="md-nav__link">
+    Mysql事务隔离级别
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvcc" class="md-nav__link">
+    MVCC原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    锁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    分库分表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    参考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fadeawaylove/interview_mkdocs/edit/master/docs/面试题/数据库.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>数据库</h1>
+                
+                <h2 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
+<h3 id="_1">数据持久化<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h4 id="rdb">RDB<a class="headerlink" href="#rdb" title="Permanent link">&para;</a></h4>
+<p>服务器启动的时候，检测到RDB文件就自动载入（如果服务器开启了AOF，会优先使用AOF文件还原数据库状态）。</p>
+<p><strong>命令：</strong><code>save</code>和<code>bgsave</code>，<code>save</code>会阻塞Redis服务器进程，<code>bgsave</code>子进程负责创建RDB文件。</p>
+<p><strong>dirty计数器</strong>：上一次执行<code>save</code>或者<code>bgsave</code>命令后，服务器对数据库状态进行多少次修改。</p>
+<p><strong>lastsave属性：</strong>服务上次执行保存操作的时间。</p>
+<p><strong>文件结构：</strong><img alt="image-20210425162730897" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210425162730897.png" /></p>
+<ul>
+<li>REDIS标明是RDB文件</li>
+<li>db_version表示RDB文件的版本号</li>
+<li>databases多个数据库已经对应的键值</li>
+<li>check_sum校验和，根据前面四个部分计算得出</li>
+</ul>
+<p><strong>重点：</strong></p>
+<p><img alt="image-20210425170739107" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210425170739107.png" /></p>
+<h4 id="aof">AOF<a class="headerlink" href="#aof" title="Permanent link">&para;</a></h4>
+<p>与RDB保存数据库中的键值对来记录数据库对应状态不同，AOF是通过保存Redis服务器执行的写命令来记录数据库状态。</p>
+<p><strong>文件写入：</strong></p>
+<ol>
+<li>命令追加：客户端发送写命令-&gt;服务端执行写命令-&gt;将协议内容追加到aof_buf缓冲区末尾。</li>
+<li>文件写入：
+   <img alt="image-20210425164057124" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210425164057124.png" /></li>
+<li>文件同步（可以理解为保存）：
+   现代操作系统中，一般调用了write后数据不会立马写入，而是先保存在内存缓冲区里面，等内容到了一定大小或者时间超过指定时限后，才真正将缓冲区的数据写到磁盘上。</li>
+</ol>
+<p><strong>文件载入：</strong></p>
+<p>因为AOF文件包含了重建数据库状态需要的所有写命令，所以服务器只需要读入并重新执行一遍就行了（fake client）。</p>
+<p><strong>AOF重写：</strong></p>
+<p>AOF文件越来越大，影响Redis服务器、宿主机，恢复时间边长。AOF重写，用不带冗余命令的新AOF文件代替（原子操作）老的AOF文件。</p>
+<p>读取现有的键值对，然后用一个命令去代替原先的多个命令，将当前键值对记录下来。</p>
+<p>重写期间服务器进程新处理的命令请求改变数据库状态，使用aof_rewrite_buf：</p>
+<p><img alt="image-20210425170353269" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210425170353269.png" /></p>
+<p>子进程重写完毕后，服务器进程将AOF重写缓冲区的内容写到新的AOF文件中。</p>
+<p><strong>重点：</strong></p>
+<p><img alt="image-20210425170716227" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210425170716227.png" /></p>
+<h4 id="_2">混合持久化<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>redis4.0后有了混合持久化的特性，通过bgrewriteaof进行AOF重写的时候，先按照rdb格式对数据库状态进行保存，再将aof_rewrite_buf写到AOF文件中。</p>
+<h4 id="_3">参考回答<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>bgsave做镜像全量持久化，aof做增量持久化。因为bgsave会耗费较长时间，不够实时，在停机的时候会导致大量丢失数据，所以需要aof来配合使用。在redis实例重启时，优先使用aof来恢复内存的状态，如果没有aof日志，就会使用rdb文件来恢复。</p>
+<p>如果再问aof文件过大恢复时间过长怎么办？你告诉面试官，Redis会定期做aof重写，压缩aof文件日志大小。如果面试官不够满意，再拿出杀手锏答案，Redis4.0之后有了混合持久化的功能，将bgsave的全量和aof的增量做了融合处理，这样既保证了恢复的效率又兼顾了数据的安全性。这个功能甚至很多面试官都不知道，他们肯定会对你刮目相看。</p>
+<p>如果对方追问那如果突然机器掉电会怎样？取决于aof日志sync属性的配置，如果不要求性能，在每条写指令时都sync一下磁盘，就不会丢失数据。但是在高性能的要求下每次都sync是不现实的，一般都使用定时sync，比如1s1次，这个时候最多就会丢失1s的数据。</p>
+<p>如果对方追问bgsave的原理是什么？你给出两个词汇就可以了，fork和cow。fork是指redis通过创建子进程来进行bgsave操作，cow指的是copy on write，子进程创建后，父子进程共享数据段，父进程继续提供读写服务，写脏的页面数据会逐渐和子进程分离开来。</p>
+</blockquote>
+<h3 id="redis_1"><strong>Redis有哪些数据结构？</strong><a class="headerlink" href="#redis_1" title="Permanent link">&para;</a></h3>
+<p>字符串String、字典Hash、列表List、集合Set、有序集合SortedSet。</p>
+<p>如果你是Redis中高级用户，还需要加上下面几种数据结构：</p>
+<ul>
+<li>HyperLogLog：：用于基数统计，比如网页的UV，比set或bitmap更节省空间（简单思考原理）。</li>
+<li>Geo Sets：地理位置距离排序算法是 GeoHash（将二维的经纬度坐标转换成一个可比较的字符串信息）。</li>
+<li>Pub/Sub：消费订阅模式</li>
+</ul>
+<p>如果你说还玩过Redis Module，像BloomFilter，RedisSearch（高性能的全文搜索引擎），Redis-ML，面试官得眼睛就开始发亮了。</p>
+<h3 id="redis_2">Redis分布式锁<a class="headerlink" href="#redis_2" title="Permanent link">&para;</a></h3>
+<p>主要的核心就是setnx命令，基本逻辑如下：</p>
+<ul>
+<li>setnx返回True，说明获取到了锁，执行有资源竞争部分的操作，操作完后删除掉代表锁的key；</li>
+<li>setnx返回False，则不断重试直到获取锁，然后执行上一步的操作；</li>
+</ul>
+<p>要注意的问题：</p>
+<ol>
+<li>setnx的时候同时设置expire时间，避免有进程长期占用锁，导致其它进程无法获取锁；</li>
+<li>如果获取锁，然后执行过程中锁过期了，此时还未执行完，其他进程获取到了锁，就会造成临界区竞争（Redis 分布式锁不要用于较长时间的任务）;</li>
+</ol>
+<h3 id="_4">延时队列<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>使用sortedset结构，时间戳作为score。</p>
+<h3 id="redis_3"><strong>是否使用过Redis集群，集群的原理是什么？</strong><a class="headerlink" href="#redis_3" title="Permanent link">&para;</a></h3>
+<p>Redis Sentinal着眼于高可用，在master宕机时会自动将slave提升为master，继续提供服务。</p>
+<p>Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster进行分片存储。</p>
+<h3 id="redis_4"><strong>Redis的同步机制了解么？</strong><a class="headerlink" href="#redis_4" title="Permanent link">&para;</a></h3>
+<p>Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将rdb文件全量同步到复制节点，复制节点接受完成后将rdb镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。</p>
+<h3 id="_5">参考<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://blog.csdn.net/Butterfly_resting/article/details/89668661">几率大的Redis面试题（含答案）</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-y1zvqWEJ3Tt4h39Z0WBJg">天下无难试之Redis面试刁难大全 (qq.com)</a></li>
+</ul>
+<h2 id="mysql">Mysql<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
+<h3 id="mysql_1">Mysql事务隔离级别<a class="headerlink" href="#mysql_1" title="Permanent link">&para;</a></h3>
+<p><img alt="在这里插入图片描述" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/20190430101953530.png" /></p>
+<p><strong>脏读：</strong></p>
+<p>如果一个事务读到了另一个未提交事务修改过的数据，那就意味着发生了<code>脏读</code>。</p>
+<p><img alt="image-20210428201716861" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210428201716861.png" /></p>
+<p><strong>不可重复读：</strong></p>
+<p>如果一个事务只能读到另一个已经提交的事务修改过的数据，并且其他事务每对该数据进行一次修改并提交后，该事务都能查询得到最新值，那就意味着发生了<code>不可重复读</code>。</p>
+<p><img alt="image_1d8nk4k1e1mt51nsj1hg41cd7v5950.png-139.4kB" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/16a2f5b32bc1f76b" /></p>
+<p><strong>幻读：</strong></p>
+<p>如果一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来，那就意味着发生了<code>幻读</code>。<code>幻读</code>强调的是一个事务按照某个相同条件多次读取记录时，后读取时读到了之前没有读到的记录。</p>
+<p><img alt="image_1d8nl564faluogc1eqn1am812v79.png-96.1kB" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/16a2f5b32d7b9ada" /></p>
+<h3 id="mvcc">MVCC原理<a class="headerlink" href="#mvcc" title="Permanent link">&para;</a></h3>
+<p><strong><code>MVCC</code></strong>，全称<code>Multi-Version Concurrency Control</code>，翻译过来就是多版本并发控制，是一种多版本并发控制的方法。在mysql innodb的实现主要是为了解决读写冲突的同时提高数据库的并发性能，做到即使有读写冲突（<strong>写锁是排他的,它会阻塞其他读锁和写锁</strong>）的时候也能并发的读。</p>
+<p><strong>实现：</strong></p>
+<p>两个隐藏列<code>DB_TRX_ID</code>和<code>DB_ROLL_PTR</code>。</p>
+<p><strong>ReadView：</strong></p>
+<p>快照读的时候产生的读视图，RC和RR隔离级别下起作用。</p>
+<p>会记录当前活跃的事务id，数据可见性的判断规则为：</p>
+<ol>
+<li>记录的trx_id等于当前事务trx_id，可见；</li>
+<li>记录的trx_id小于视图中最小的活跃trx_id，可见；</li>
+<li>记录的trx_id大于视图中最大的活跃trx_id，不可见；</li>
+<li>记录的trx_id大于最小活跃trx_id同时小于最大活跃trx_id，在活跃的trx_id中则不可见，反之可见。</li>
+</ol>
+<p>RC和RR的区别就是RR只生成一次ReadView。</p>
+<p><strong>参考：</strong></p>
+<ul>
+<li>
+<p><a href="https://www.jianshu.com/p/8845ddca3b23">MVCC多版本并发控制 - 简书 (jianshu.com)</a></p>
+</li>
+<li>
+<p>https://blog.csdn.net/whoamiyang/article/details/51901888</p>
+</li>
+<li><a href="https://blog.csdn.net/qq_41376740/article/details/82314915">搞清楚mysql的MVCC实现</a></li>
+<li>https://blog.csdn.net/SnailMann/article/details/94724197</li>
+<li>https://blog.csdn.net/cumtmonster/article/details/106669873</li>
+</ul>
+<h3 id="_6">锁<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>行锁：</strong>共享锁-s锁、排他锁-x锁，IS锁，IX锁</p>
+<ul>
+<li>LOCK_REC_NOT_GAP：只锁住一条记录，等值查询的时候；</li>
+<li>Gap Locks：锁住一个区间的记录（不存在），可以解决幻读问题；</li>
+<li>Next-Key Locks：锁住当前记录以及此条记录之前的记录的锁；</li>
+<li>Insert Intention Locks：插入意向锁，插入时要判断是否有gap锁，如果有则要生成一个插入意向锁结构。</li>
+</ul>
+<p><strong>行锁兼容性：</strong></p>
+<p><img alt="image-20210429220554358" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210429220554358.png" /></p>
+<p><strong>表锁：</strong>共享锁-s锁、排他锁-x锁，IS锁，IX锁</p>
+<ul>
+<li>意向共享锁，英文名：<code>Intention Shared Lock</code>，简称<code>IS锁</code>。当事务准备在某条记录上加<code>S锁</code>时，需要先在表级别加一个<code>IS锁</code>。</li>
+<li>意向独占锁，英文名：<code>Intention Exclusive Lock</code>，简称<code>IX锁</code>。当事务准备在某条记录上加<code>X锁</code>时，需要先在表级别加一个<code>IX锁</code>。</li>
+</ul>
+<p>IS、IX锁是表级锁，它们的提出仅仅为了在之后加表级别的S锁和X锁时可以快速判断表中的记录是否被上锁，以避免用遍历的方式来查看表中有没有上锁的记录，也就是说其实IS锁和IX锁是兼容的，IX锁和IX锁是兼容的</p>
+<p><strong>表锁兼容性：</strong></p>
+<p><img alt="image-20210429180624434" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210429180624434.png" /></p>
+<p><strong>注意：</strong>InnoDB行锁是通过给索引上的索引项加锁来实现的，只有通过索引（主键索引、唯一索引或普通索引）条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁。</p>
+<p><strong>参考：</strong></p>
+<ul>
+<li>https://zhuanlan.zhihu.com/p/29150809/</li>
+</ul>
+<h3 id="_7">分库分表<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_8">参考<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://blog.csdn.net/Butterfly_resting/article/details/89704636">几率大的数据库（MySQL）面试题（含答案）_睶-CSDN博客_mysql数据库面试</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                操作系统
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['search.highlight', 'header.autohide', 'instant', 'navigation.expand', 'navigation.instant', 'tabs', 'toc.autohide'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../mathjaxhelper.js"></script>
+      
+    
+  </body>
+</html>

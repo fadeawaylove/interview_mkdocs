@@ -1,0 +1,1550 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一个学习知识的记录">
+      
+      
+        <link rel="canonical" href="https://fadeawaylove.github.io/interview_mkdocs/redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+      
+      
+        <meta name="author" content="呆瓜">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>字符串 - Study notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#000000">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-header-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Study notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              字符串
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../.." class="md-tabs__link">
+          主页
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../python/%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          Python
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../books/redis/" class="md-tabs__link">
+          书籍
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../algorithm/%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" class="md-tabs__link">
+          算法
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-tabs__link md-tabs__link--active">
+          Redis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../posts/" class="md-tabs__link">
+          文章
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%BD%91%E7%BB%9C/" class="md-tabs__link">
+          面试
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Study notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      主页
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="主页" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        主页
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../python/%E5%9F%BA%E7%A1%80/" title="python基础" class="md-nav__link">
+      python基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../python/%E9%AB%98%E7%BA%A7/" title="python技巧" class="md-nav__link">
+      python技巧
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      书籍
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="书籍" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        书籍
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../books/redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      算法
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="算法" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        算法
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" title="数组" class="md-nav__link">
+      数组
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/%E9%80%92%E5%BD%92/" title="递归" class="md-nav__link">
+      递归
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划" class="md-nav__link">
+      动态规划
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="回溯算法" class="md-nav__link">
+      回溯算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/BFS/" title="广度优先" class="md-nav__link">
+      广度优先
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../algorithm/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" title="贪心算法" class="md-nav__link">
+      贪心算法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Redis
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Redis" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Redis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" title="安装使用" class="md-nav__link">
+      安装使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95/" title="源码调试" class="md-nav__link">
+      源码调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" checked>
+    
+    <label class="md-nav__link" for="nav-5-3">
+      基础数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="基础数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        基础数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        字符串
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="字符串" class="md-nav__link md-nav__link--active">
+      字符串
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sds" class="md-nav__link">
+    2. SDS介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="2. SDS介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-sds" class="md-nav__link">
+    2.1 SDS结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-sdsc" class="md-nav__link">
+    2.2 SDS与C字符串的区别
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 SDS与C字符串的区别">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    2.2.1 获取字符串的长度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    2.2.2 缓冲区溢出
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    2.2.3 减少字符串修改带来的内存重新分配次数
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.3 减少字符串修改带来的内存重新分配次数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    a) 空间预分配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    b) 惰性空间释放
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    2.2.4 二进制安全
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-c" class="md-nav__link">
+    2.2.5 兼容部分C字符串函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    2.2.6 总结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-sds-api" class="md-nav__link">
+    2.3 SDS API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4  重点回顾
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.部分源码解析
+  </a>
+  
+    <nav class="md-nav" aria-label="3.部分源码解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 字符串的编码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 总结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      文章
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="文章" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        文章
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      我是你爸爸
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="我是你爸爸" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        <span class="md-nav__icon md-icon"></span>
+        我是你爸爸
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../posts/" title="1" class="md-nav__link">
+      1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../posts/" title="2" class="md-nav__link">
+      2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      面试
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="面试" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        面试
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%BD%91%E7%BB%9C/" title="网络" class="md-nav__link">
+      网络
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%AE%97%E6%B3%95/" title="算法" class="md-nav__link">
+      算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统" class="md-nav__link">
+      操作系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库" class="md-nav__link">
+      数据库
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sds" class="md-nav__link">
+    2. SDS介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="2. SDS介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-sds" class="md-nav__link">
+    2.1 SDS结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-sdsc" class="md-nav__link">
+    2.2 SDS与C字符串的区别
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 SDS与C字符串的区别">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    2.2.1 获取字符串的长度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    2.2.2 缓冲区溢出
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    2.2.3 减少字符串修改带来的内存重新分配次数
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.3 减少字符串修改带来的内存重新分配次数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    a) 空间预分配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    b) 惰性空间释放
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    2.2.4 二进制安全
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-c" class="md-nav__link">
+    2.2.5 兼容部分C字符串函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    2.2.6 总结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-sds-api" class="md-nav__link">
+    2.3 SDS API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4  重点回顾
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.部分源码解析
+  </a>
+  
+    <nav class="md-nav" aria-label="3.部分源码解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 字符串的编码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 总结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fadeawaylove/interview_mkdocs/edit/master/docs/redis/数据结构/字符串.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>字符串</h1>
+                
+                <h2 id="1">1.概念<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Redis字符串实际上是简单动态字符串（simple dynamic string, SDS），Redis使用SDS而不是C语言的字符串（以空字符结尾的字符数组）来实现修改的动态字符串，C字符串是作为Redis字符串的字面量用在一些无需对字符串进行改变的地方，比如打印日志。简单来说Redis自己实现了一个SDS结构体，作为Redis字符串。</p>
+<h2 id="2-sds">2. SDS介绍<a class="headerlink" href="#2-sds" title="Permanent link">&para;</a></h2>
+<p>Redis6.0源码地址：<a href="https://github.com/redis/redis/tree/6.0">https://github.com/redis/redis/tree/6.0</a></p>
+<h3 id="21-sds">2.1 SDS结构<a class="headerlink" href="#21-sds" title="Permanent link">&para;</a></h3>
+<p>查看源码可以发现sds的定义<code>typedef char *sds;</code>，实际上sds定义的就是一个<code>char</code>类型，真正实现SDS的其实是结构体sds头<code>sdshdr</code>。</p>
+<p><code>src\sds.h</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Note: sdshdr5 is never used, we just access the flags byte directly.</span>
+<span class="cm"> * However is here to document the layout of type 5 SDS strings. */</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">sdshdr5</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span><span class="p">;</span> <span class="cm">/* 3 lsb of type, and 5 msb of string length */</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">sdshdr8</span> <span class="p">{</span>
+    <span class="kt">uint8_t</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/* used */</span>
+    <span class="kt">uint8_t</span> <span class="n">alloc</span><span class="p">;</span> <span class="cm">/* excluding the header and null terminator */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span><span class="p">;</span> <span class="cm">/* 3 lsb of type, 5 unused bits */</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">sdshdr16</span> <span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/* used */</span>
+    <span class="kt">uint16_t</span> <span class="n">alloc</span><span class="p">;</span> <span class="cm">/* excluding the header and null terminator */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span><span class="p">;</span> <span class="cm">/* 3 lsb of type, 5 unused bits */</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">sdshdr32</span> <span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/* used */</span>
+    <span class="kt">uint32_t</span> <span class="n">alloc</span><span class="p">;</span> <span class="cm">/* excluding the header and null terminator */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span><span class="p">;</span> <span class="cm">/* 3 lsb of type, 5 unused bits */</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">sdshdr64</span> <span class="p">{</span>
+    <span class="kt">uint64_t</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/* used */</span>
+    <span class="kt">uint64_t</span> <span class="n">alloc</span><span class="p">;</span> <span class="cm">/* excluding the header and null terminator */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span><span class="p">;</span> <span class="cm">/* 3 lsb of type, 5 unused bits */</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>sdshdr5结构体：</p>
+<ul>
+<li><code>flags</code>：大小1个字节，低3位表示header的类型，高5位表示字符串的长度</li>
+<li><code>buf</code>：字节数组，保存字符串</li>
+</ul>
+<p>除开sdshdr5，SDS结构体:</p>
+<ul>
+<li><code>len</code> ：已经使用的空间（字节）长度，也就是字符串的长度</li>
+<li><code>alloc</code> ：字符串的最大容量（不包括头和空结束符）</li>
+<li><code>flags</code> ：大小1个字节，低3位表示header的类型，高5位未使用</li>
+<li><code>buf</code> ：字节数组，保存字符串</li>
+</ul>
+<h3 id="22-sdsc">2.2 SDS与C字符串的区别<a class="headerlink" href="#22-sdsc" title="Permanent link">&para;</a></h3>
+<p>C语言中使用长度为<span class="arithmatex">\(N+1\)</span>的字符数组来表示长度为<span class="arithmatex">\(N\)</span>的字符串，并且字符数组的最后一个元素总是空字符"\o"。</p>
+<p><img alt="1602745027349" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602745027349.png" /></p>
+<p>C语言这种简单的字符串表示方式不能满足Redis对字符串在安全性、效率已经功能方面的要求。</p>
+<h4 id="221">2.2.1 获取字符串的长度<a class="headerlink" href="#221" title="Permanent link">&para;</a></h4>
+<p>C字符串需要遍历一遍，时间复杂度为<span class="arithmatex">\(O(N)\)</span>:</p>
+<p><img alt="1602745250273" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602745250273.png" /></p>
+<p>和C字符串不同，SDS中的len属性，可以直接获得字符串长度，时间复杂度降为<span class="arithmatex">\(O(1)\)</span>：</p>
+<p><img alt="1602746182629" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602746182629.png" /></p>
+<h4 id="222">2.2.2 缓冲区溢出<a class="headerlink" href="#222" title="Permanent link">&para;</a></h4>
+<p>C字符串不记录自身长度，使用<code>&lt;string.h&gt;/strcat</code>函数将<code>src</code>字符串中的内容拼接到<code>dest</code>字符串的末尾：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span> <span class="o">*</span><span class="n">strcat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span>
+</code></pre></div>
+<p>如果执行<code>strcat</code>函数的时候没有预先为<code>dest</code>分配足够多的内存空间，就会产生缓冲区溢出。</p>
+<p>与C字符串不同，Redis使用<code>sds.c/sdscat</code>函数进行字符串拼接时，如果<code>dest</code>空间不够，就会使用函数<code>sdsMakeRoomFor</code>扩容空间，避免了出现缓冲区溢出的情况（注意此时扩容空间时，并不是分配仅够扩容后字符串大小的空间，而是会冗余分配一些未使用的空间，可以想想这是为什么）。</p>
+<h4 id="223">2.2.3 减少字符串修改带来的内存重新分配次数<a class="headerlink" href="#223" title="Permanent link">&para;</a></h4>
+<p>C字符串修改时，都要进行一次内存重新分配操作：</p>
+<ul>
+<li>如果时增长字符串，程序需要先通过内存重新分配来扩展底层数组空间大小，如果忘了这一步可能会产生缓存溢出。</li>
+<li>如果是缩短字符串，程序在执行这个操作后，要通过内存重新分配来释放字符串不再使用的空间，如果忘了那就会产生内存泄漏。</li>
+</ul>
+<p>因为内存分配涉及复杂的算法，还可能需要执行系统调用，所以它通常都是一个比较耗时的操作。在一般的程序中如果修改字符串的场景不太常见，那么每次修改内存都重新分配是可以接受的。但是Redis作为数据库，对性能要求很高，如果频繁的进行内存重新分配的系统调用，势必会影响性能。</p>
+<p>为了避免C字符串的这种缺陷，SDS通过未使用空间解除了<strong>字符串长度和底层字符数组长度</strong>之间的关联，也就是数，<code>sdshdr</code>中的<code>len</code>和<code>alloc</code>并不一定相等。主要表现为两种策略：</p>
+<h5 id="a">a) 空间预分配<a class="headerlink" href="#a" title="Permanent link">&para;</a></h5>
+<p>用于优化SDS字符串的增长操作：当SDS的API对一个SDS进行修改并且需要对SDS的空间进行扩展的时候，程序不仅会为SDS分配修改所必须的空间，还会为SDS分配额外的未使用空间，分配策略如下：</p>
+<ul>
+<li>如果对SDS修改后，字符串长度小于1MB（即len属性小于1MB），那么程序将分配和len属性同样大小的未使用空间。</li>
+<li>如果对SDS修改后，字符串长度大于1MB，那么程序会分配1MB的未使用空间。</li>
+</ul>
+<h5 id="b">b) 惰性空间释放<a class="headerlink" href="#b" title="Permanent link">&para;</a></h5>
+<p>用于优化SDS字符串的缩短操作：当SDS的API需要缩短SDS保存的字符串时，程序并不会立即进行内存分配来回收多出来的字节，而是只更新len的值。</p>
+<p>相关函数：</p>
+<p><code>src/sds.c</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Modify an sds string in-place to make it empty (zero length).</span>
+<span class="cm"> * However all the existing buffer is not discarded but set as free space</span>
+<span class="cm"> * so that next append operations will not require allocations up to the</span>
+<span class="cm"> * number of bytes previously available. */</span>
+<span class="kt">void</span> <span class="nf">sdsclear</span><span class="p">(</span><span class="n">sds</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">sdssetlen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>src/sds.h</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">sdssetlen</span><span class="p">(</span><span class="n">sds</span> <span class="n">s</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">newlen</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">flags</span><span class="o">&amp;</span><span class="n">SDS_TYPE_MASK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nl">SDS_TYPE_5</span><span class="p">:</span>
+            <span class="p">{</span>
+                <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">)</span><span class="mi">-1</span><span class="p">;</span>
+                <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">SDS_TYPE_5</span> <span class="o">|</span> <span class="p">(</span><span class="n">newlen</span> <span class="o">&lt;&lt;</span> <span class="n">SDS_TYPE_BITS</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nl">SDS_TYPE_8</span><span class="p">:</span>
+            <span class="n">SDS_HDR</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">newlen</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nl">SDS_TYPE_16</span><span class="p">:</span>
+            <span class="n">SDS_HDR</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">newlen</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nl">SDS_TYPE_32</span><span class="p">:</span>
+            <span class="n">SDS_HDR</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">newlen</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nl">SDS_TYPE_64</span><span class="p">:</span>
+            <span class="n">SDS_HDR</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">newlen</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这样做的好处是，可以避免缩短字符串时候的内重新分配，并为后续可能的字符增长进行了优化（如果未使用空间足够，则不需要重新分配内存）</p>
+<h4 id="224">2.2.4 二进制安全<a class="headerlink" href="#224" title="Permanent link">&para;</a></h4>
+<p>C字符串中的字符必须符合某种编码（比如ASCII），并且除了末尾以外，字符串不能包含空字符，即将空字符作为字符串结束的标志，这种限制使得C字符串只能保存文本数据，而不能保存图片、音频、视频、压缩文件这样的二进制数据。比如有一个字符串"Redis Cluster"，C字符串就只能识别出其中"Redis"而忽略之后的"Cluster"。</p>
+<p><img alt="1602848489275" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602848489275.png" /></p>
+<p>相比之下，SDS的API都是以处理二进制的方式来处理SDS皴法在buf数组里面的数据，程序不会对其中的数据做任何限制、过滤、或者假设，数据在写入时是什么样的，被读取的时候就是什么样的，这也是我们把buf成为字节数组的原因，同样保存"Redis Cluster"，SDS就不会有问题，因为SDS使用len属性的值来判断字符串的结束。</p>
+<h4 id="225-c">2.2.5 兼容部分C字符串函数<a class="headerlink" href="#225-c" title="Permanent link">&para;</a></h4>
+<p>虽然SDS的API都是二进制安全的，但是它们一样遵循C字符串以空字符结尾的惯例，这样一来，SDS可以重用\&lt;string.h>中定义的函数。</p>
+<h4 id="226">2.2.6 总结<a class="headerlink" href="#226" title="Permanent link">&para;</a></h4>
+<p>C字符串和SDS之间的区别：</p>
+<p><img alt="1602849161396" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602849161396.png" /></p>
+<h3 id="23-sds-api">2.3 SDS API<a class="headerlink" href="#23-sds-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>sds sdsnew(const char *init)</code>：根据一个空字符结尾的C字符串创建一个新的sds字符串。</li>
+<li><code>sds sdsdup(const sds s)</code>：复制一个sds字符串。</li>
+</ul>
+<p>todo：待补充。。。</p>
+<h3 id="24">2.4  重点回顾<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Redis只会使用C字符串作为字面量，在大多数情况下，Redis使用SDS作为字符串表示。</li>
+<li>比起C字符串，SDS具有以下优点：</li>
+<li><span class="arithmatex">\(O(1)\)</span>时间复杂度获取字符串长度</li>
+<li>分配冗余空间，杜绝缓冲区溢出</li>
+<li>减少修改字符串长度时所需的内存重分配次数</li>
+<li>二进制安全</li>
+<li>兼容部分C字符串函数</li>
+</ul>
+<h2 id="3">3.部分源码解析<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 字符串的编码<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>Redis字符串有三种编码方式：</p>
+<ul>
+<li>int：如果字符串可以转为范围为8字节（-9223372036854775808~9223372036854775807）的长长整型</li>
+<li>embede：不能转为int，同时字符串长度小于等于44</li>
+<li>raw：不能转为int，同时字符串长度大于44</li>
+</ul>
+<p>通过<code>object encoding key_name</code>可以查看Redis对象的编码类型，我们可以简单查看下上述情况：</p>
+<p>a) 查看int编码：</p>
+<div class="highlight"><pre><span></span><code><span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> int_min -9223372036854775808
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding int_min
+<span class="s2">&quot;int&quot;</span>
+<span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> int_min -9223372036854775809
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding int_min
+<span class="s2">&quot;embstr&quot;</span>
+<span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> int_max <span class="m">9223372036854775807</span>
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding int_max
+<span class="s2">&quot;int&quot;</span>
+<span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> int_max <span class="m">9223372036854775808</span>
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding int_max
+<span class="s2">&quot;embstr&quot;</span>
+</code></pre></div>
+<p>可以看到，超出了范围后，编码就不再是int了，源码中与这部分逻辑相关的代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Try to encode a string object in order to save space */</span>
+<span class="n">robj</span> <span class="o">*</span><span class="nf">tryObjectEncoding</span><span class="p">(</span><span class="n">robj</span> <span class="o">*</span><span class="n">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">sds</span> <span class="n">s</span> <span class="o">=</span> <span class="n">o</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+
+    <span class="cm">/* Make sure this is a string object, the only type we encode</span>
+<span class="cm">     * in this function. Other types use encoded memory efficient</span>
+<span class="cm">     * representations but are handled by the commands implementing</span>
+<span class="cm">     * the type. */</span>
+    <span class="n">serverAssertWithInfo</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">OBJ_STRING</span><span class="p">);</span>
+
+    <span class="cm">/* We try some specialized encoding only for objects that are</span>
+<span class="cm">     * RAW or EMBSTR encoded, in other words objects that are still</span>
+<span class="cm">     * in represented by an actually array of chars. */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">sdsEncodedObject</span><span class="p">(</span><span class="n">o</span><span class="p">))</span> <span class="k">return</span> <span class="n">o</span><span class="p">;</span>  <span class="c1">// 只有EMBSTR和RAW编码才会处理，否则返回</span>
+
+    <span class="cm">/* It&#39;s not safe to encode shared objects: shared objects can be shared</span>
+<span class="cm">     * everywhere in the &quot;object space&quot; of Redis and may end in places where</span>
+<span class="cm">     * they are not handled. We handle them only as values in the keyspace. */</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">refcount</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">o</span><span class="p">;</span>  <span class="c1">// 如果是共享的对象则不处理，直接返回</span>
+
+    <span class="cm">/* Check if we can represent this string as a long integer.</span>
+<span class="cm">     * Note that we are sure that a string larger than 20 chars is not</span>
+<span class="cm">     * representable as a 32 nor 64 bit integer. */</span>
+    <span class="n">len</span> <span class="o">=</span> <span class="n">sdslen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="n">string2l</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">len</span><span class="p">,</span><span class="o">&amp;</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span>  <span class="c1">// 判断字符串是不是可以转为一个长整型</span>
+        <span class="cm">/* This object is encodable as a long. Try to use a shared object.</span>
+<span class="cm">         * Note that we avoid using shared integers when maxmemory is used</span>
+<span class="cm">         * because every object needs to have a private LRU field for the LRU</span>
+<span class="cm">         * algorithm to work well. */</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">server</span><span class="p">.</span><span class="n">maxmemory</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+            <span class="o">!</span><span class="p">(</span><span class="n">server</span><span class="p">.</span><span class="n">maxmemory_policy</span> <span class="o">&amp;</span> <span class="n">MAXMEMORY_FLAG_NO_SHARED_INTEGERS</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+            <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+            <span class="n">value</span> <span class="o">&lt;</span> <span class="n">OBJ_SHARED_INTEGERS</span><span class="p">)</span>
+        <span class="p">{</span>   
+            <span class="c1">// 小于10000是共享整型</span>
+            <span class="n">decrRefCount</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+            <span class="n">incrRefCount</span><span class="p">(</span><span class="n">shared</span><span class="p">.</span><span class="n">integers</span><span class="p">[</span><span class="n">value</span><span class="p">]);</span>
+            <span class="k">return</span> <span class="n">shared</span><span class="p">.</span><span class="n">integers</span><span class="p">[</span><span class="n">value</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">encoding</span> <span class="o">==</span> <span class="n">OBJ_ENCODING_RAW</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// raw类型编码的处理</span>
+                <span class="n">sdsfree</span><span class="p">(</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">);</span>
+                <span class="n">o</span><span class="o">-&gt;</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">OBJ_ENCODING_INT</span><span class="p">;</span>
+                <span class="n">o</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">value</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">o</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">encoding</span> <span class="o">==</span> <span class="n">OBJ_ENCODING_EMBSTR</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// emb类型编码的处理</span>
+                <span class="n">decrRefCount</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">createStringObjectFromLongLongForValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* If the string is small and is still RAW encoded,</span>
+<span class="cm">     * try the EMBSTR encoding which is more efficient.</span>
+<span class="cm">     * In this representation the object and the SDS string are allocated</span>
+<span class="cm">     * in the same chunk of memory to save space and cache misses. */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="n">OBJ_ENCODING_EMBSTR_SIZE_LIMIT</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">robj</span> <span class="o">*</span><span class="n">emb</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">o</span><span class="o">-&gt;</span><span class="n">encoding</span> <span class="o">==</span> <span class="n">OBJ_ENCODING_EMBSTR</span><span class="p">)</span> <span class="k">return</span> <span class="n">o</span><span class="p">;</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="n">createEmbeddedStringObject</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">sdslen</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+        <span class="n">decrRefCount</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">emb</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* We can&#39;t encode the object...</span>
+<span class="cm">     *</span>
+<span class="cm">     * Do the last try, and at least optimize the SDS string inside</span>
+<span class="cm">     * the string object to require little space, in case there</span>
+<span class="cm">     * is more than 10% of free space at the end of the SDS string.</span>
+<span class="cm">     *</span>
+<span class="cm">     * We do that only for relatively large strings as this branch</span>
+<span class="cm">     * is only entered if the length of the string is greater than</span>
+<span class="cm">     * OBJ_ENCODING_EMBSTR_SIZE_LIMIT. */</span>
+    <span class="n">trimStringObjectIfNeeded</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+
+    <span class="cm">/* Return the original object. */</span>
+    <span class="k">return</span> <span class="n">o</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>b) 查看embede编码和raw编码：</p>
+<div class="highlight"><pre><span></span><code><span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> str_demo1 <span class="s1">&#39;abcdefghijklmnopqrstuvwxyz012345678901234567&#39;</span>
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding str_demo1
+<span class="s2">&quot;embstr&quot;</span>
+<span class="m">127</span>.0.0.1:6379&gt; <span class="nb">set</span> str_demo2 <span class="s1">&#39;abcdefghijklmnopqrstuvwxyz0123456789012345678&#39;</span>
+OK
+<span class="m">127</span>.0.0.1:6379&gt; object encoding str_demo2
+<span class="s2">&quot;raw&quot;</span>
+</code></pre></div>
+<p>可以看到，字符串长度大于44时，编码类型为raw，否则编码类型为embstr，相关源码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Create a string object with EMBSTR encoding if it is smaller than</span>
+<span class="cm"> * OBJ_ENCODING_EMBSTR_SIZE_LIMIT, otherwise the RAW encoding is</span>
+<span class="cm"> * used.</span>
+<span class="cm"> *</span>
+<span class="cm"> * The current limit of 44 is chosen so that the biggest string object</span>
+<span class="cm"> * we allocate as EMBSTR will still fit into the 64 byte arena of jemalloc. */</span>
+<span class="cp">#define OBJ_ENCODING_EMBSTR_SIZE_LIMIT 44</span>
+<span class="n">robj</span> <span class="o">*</span><span class="nf">createStringObject</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="n">OBJ_ENCODING_EMBSTR_SIZE_LIMIT</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">createEmbeddedStringObject</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="n">len</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">createRawStringObject</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="n">len</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>思考：为什么raw编码和embstr编码的分界线是44呢？</p>
+<p>答：jemalloc分配内存大小的单位都是 2、4、8、16、32、64等，如果总体超出了 64 字节，Redis 认为它是一个大字符串。如下图可以看到，embstr类型的字符串是一个连续的空间，其实redisObject占用16个字节，sdshdr最少占用3个字节，那么还剩下64-3-16=45个字节保存字符数组，再剪去字符数组最后保存的'\0'，那么就剩下44个字节了，所以embstr编码的字符串最多44个字节。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/Redis%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE2.png" /></p>
+<p><code>redisObject</code>的定义：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define LRU_BITS 24</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">redisObject</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="nl">type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="nl">encoding</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="nl">lru</span><span class="p">:</span><span class="n">LRU_BITS</span><span class="p">;</span> <span class="cm">/* LRU time (relative to global lru_clock) or</span>
+<span class="cm">                            * LFU data (least significant 8 bits frequency</span>
+<span class="cm">                            * and most significant 16 bits access time). */</span>
+    <span class="kt">int</span> <span class="n">refcount</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">robj</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h2 id="4">4. 总结<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>todo。。。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/644862-20201009155635119-1183719627.jpg" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95/" title="源码调试" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                源码调试
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../../posts/" title="1" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                1
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: ['search.highlight', 'header.autohide', 'instant', 'navigation.expand', 'navigation.instant', 'tabs', 'toc.autohide'],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../mathjaxhelper.js"></script>
+      
+    
+  </body>
+</html>

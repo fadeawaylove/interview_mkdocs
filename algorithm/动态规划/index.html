@@ -1,0 +1,2259 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一个学习知识的记录">
+      
+      
+        <link rel="canonical" href="https://fadeawaylove.github.io/interview_mkdocs/algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+      
+      
+        <meta name="author" content="呆瓜">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>动态规划 - Study notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#000000">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-header-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Study notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              动态规划
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          主页
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../python/%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          Python
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../books/redis/" class="md-tabs__link">
+          书籍
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" class="md-tabs__link">
+          算法
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../redis/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="md-tabs__link">
+          Redis
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../posts/" class="md-tabs__link">
+          文章
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%BD%91%E7%BB%9C/" class="md-tabs__link">
+          面试
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://fadeawaylove.github.io/interview_mkdocs" title="Study notes" class="md-nav__button md-logo" aria-label="Study notes">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Study notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fadeawaylove/interview_mkdocs/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Study notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      主页
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="主页" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        主页
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E5%9F%BA%E7%A1%80/" title="python基础" class="md-nav__link">
+      python基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E9%AB%98%E7%BA%A7/" title="python技巧" class="md-nav__link">
+      python技巧
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      书籍
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="书籍" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        书籍
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../books/redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      算法
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="算法" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        算法
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E7%B1%BB%E5%9E%8B_%E6%95%B0%E7%BB%84/" title="数组" class="md-nav__link">
+      数组
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E9%80%92%E5%BD%92/" title="递归" class="md-nav__link">
+      递归
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        动态规划
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="动态规划" class="md-nav__link md-nav__link--active">
+      动态规划
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    算法引入
+  </a>
+  
+    <nav class="md-nav" aria-label="算法引入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    斐波那契数列
+  </a>
+  
+    <nav class="md-nav" aria-label="斐波那契数列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.暴力递归
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2.备忘录优化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3dp" class="md-nav__link">
+    3.dp数组自底向上迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4dp" class="md-nav__link">
+    4.dp数组空间优化
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    凑零钱问题
+  </a>
+  
+    <nav class="md-nav" aria-label="凑零钱问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    自顶向下思考
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    自底向上思考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    方法总结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    经典系列问题
+  </a>
+  
+    <nav class="md-nav" aria-label="经典系列问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    股票买卖
+  </a>
+  
+    <nav class="md-nav" aria-label="股票买卖">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    买卖股票Ⅰ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii" class="md-nav__link">
+    股票买卖Ⅱ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    股票买卖Ⅲ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv" class="md-nav__link">
+    股票买卖Ⅳ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    股票买卖（冷冻期）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    股票买卖（手续费）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    打家劫舍
+  </a>
+  
+    <nav class="md-nav" aria-label="打家劫舍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i_1" class="md-nav__link">
+    打家劫舍Ⅰ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii_1" class="md-nav__link">
+    打家劫舍Ⅱ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii_1" class="md-nav__link">
+    打家劫舍Ⅲ
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    一般练习题
+  </a>
+  
+    <nav class="md-nav" aria-label="一般练习题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    三角形最小路径和
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    计算各个位数不同的数字个数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    整数拆分
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    一和零
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    K 站中转内最便宜的航班
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    矩阵区域和
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    表示数字的最少运算符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    环绕字符串中唯一的子字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    只有两个键的键盘
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="回溯算法" class="md-nav__link">
+      回溯算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BFS/" title="广度优先" class="md-nav__link">
+      广度优先
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" title="贪心算法" class="md-nav__link">
+      贪心算法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Redis
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Redis" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Redis
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" title="安装使用" class="md-nav__link">
+      安装使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E6%BA%90%E7%A0%81%E8%B0%83%E8%AF%95/" title="源码调试" class="md-nav__link">
+      源码调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+    
+    <label class="md-nav__link" for="nav-5-3">
+      基础数据结构
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="基础数据结构" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        <span class="md-nav__icon md-icon"></span>
+        基础数据结构
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../redis/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串" class="md-nav__link">
+      字符串
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      文章
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="文章" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        文章
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      我是你爸爸
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="我是你爸爸" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        <span class="md-nav__icon md-icon"></span>
+        我是你爸爸
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../posts/" title="1" class="md-nav__link">
+      1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../posts/" title="2" class="md-nav__link">
+      2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      面试
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="面试" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        面试
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%BD%91%E7%BB%9C/" title="网络" class="md-nav__link">
+      网络
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%AE%97%E6%B3%95/" title="算法" class="md-nav__link">
+      算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统" class="md-nav__link">
+      操作系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库" class="md-nav__link">
+      数据库
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    算法引入
+  </a>
+  
+    <nav class="md-nav" aria-label="算法引入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    斐波那契数列
+  </a>
+  
+    <nav class="md-nav" aria-label="斐波那契数列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.暴力递归
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2.备忘录优化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3dp" class="md-nav__link">
+    3.dp数组自底向上迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4dp" class="md-nav__link">
+    4.dp数组空间优化
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    凑零钱问题
+  </a>
+  
+    <nav class="md-nav" aria-label="凑零钱问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    自顶向下思考
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    自底向上思考
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    方法总结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    经典系列问题
+  </a>
+  
+    <nav class="md-nav" aria-label="经典系列问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    股票买卖
+  </a>
+  
+    <nav class="md-nav" aria-label="股票买卖">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    买卖股票Ⅰ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii" class="md-nav__link">
+    股票买卖Ⅱ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    股票买卖Ⅲ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv" class="md-nav__link">
+    股票买卖Ⅳ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    股票买卖（冷冻期）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    股票买卖（手续费）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    打家劫舍
+  </a>
+  
+    <nav class="md-nav" aria-label="打家劫舍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i_1" class="md-nav__link">
+    打家劫舍Ⅰ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii_1" class="md-nav__link">
+    打家劫舍Ⅱ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii_1" class="md-nav__link">
+    打家劫舍Ⅲ
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    一般练习题
+  </a>
+  
+    <nav class="md-nav" aria-label="一般练习题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    三角形最小路径和
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    计算各个位数不同的数字个数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    整数拆分
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    一和零
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    K 站中转内最便宜的航班
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    矩阵区域和
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    表示数字的最少运算符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    环绕字符串中唯一的子字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    只有两个键的键盘
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fadeawaylove/interview_mkdocs/edit/master/docs/algorithm/动态规划.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>动态规划</h1>
+                
+                <h2 id="_1">算法引入<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>动态规划（英语：Dynamic programming，简称 DP）是一种在数学、管理科学、计算机科学、经济学和生物信息学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。<br />
+动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往远少于朴素解法。 <br />
+动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分（即子问题），再根据子问题的解以得出原问题的解。动态规划往往用于优化递归问题，例如斐波那契数列，如果运用递归的方式来求解会重复计算很多相同的子问题，利用动态规划的思想可以减少计算量。 <br />
+通常许多子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，具有天然剪枝的功能，从而减少计算量：一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解之时直接查表。这种做法在重复子问题的数目关于输入的规模呈指数增长时特别有用。</p>
+</blockquote>
+<h3 id="_2">斐波那契数列<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>定义为：由 <code>0</code> 和 <code>1</code> 开始，后面的每一项数字都是前面两项数字的和。</p>
+<h4 id="1">1.暴力递归<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>依然可以运用动态规划的思想，我们可以得到状态转移方程 ：
+$$
+f(n)=f(n-1)+f(n-2)
+$$
+代码实现就出来了：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># 边界条件（base case）</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p>这样暴力递归其实是效率很低的，画出递归树就可以很明显的看到：</p>
+<p><img alt="" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210318203531621.png" /></p>
+<p>计算f(20)的时候，计算出了f(19)和f(18)，到了计算f(19)的时候，又把f(18)计算了一遍，这样重复计算导致效率变低。</p>
+<h4 id="2">2.备忘录优化<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>使用一个数组或者字典，将已经计算过的值存进去，就像一个缓存一样，这样就可以减少重复计算。</p>
+<p>代码实现如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">tb</span><span class="p">:</span> <span class="n">List</span><span class="p">):</span>
+    <span class="c1"># 边界条件（base case）</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">tb</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tb</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tb</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p>递归图如下：</p>
+<p><img alt="" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210318203629965.png" /></p>
+<p>这样就将递归树中的冗余计算都去掉了，时间复杂度从<code>O(n^2)</code>优化到了<code>O(n)</code>，可以说是降维打击。</p>
+<p>根据思考解题的方向可知，这是一种自顶向下的方式，从最终结果也就是递归树的根节点，递归往下计算直至返回，如下图所示：</p>
+<p><img alt="" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210318203736050.png" /></p>
+<h4 id="3dp">3.dp数组自底向上迭代<a class="headerlink" href="#3dp" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210318204603563.png" /></p>
+<p>其实我们还可以自底向上的迭代求解，从最小的f(1)和f(2)往上推出f(20)，代码实现如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+</code></pre></div>
+<h4 id="4dp">4.dp数组空间优化<a class="headerlink" href="#4dp" title="Permanent link">&para;</a></h4>
+<p>我们观察到，每一次的结果实际只跟前两次的结果有关，所以可以只存储前两次的结果，对空间进行简化。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">dp_1</span> <span class="o">=</span> <span class="n">dp_2</span> <span class="o">=</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">dp_1</span><span class="p">,</span><span class="n">dp_2</span><span class="o">=</span><span class="n">dp_1</span><span class="o">+</span><span class="n">dp_2</span><span class="p">,</span><span class="n">dp_1</span>
+    <span class="k">return</span> <span class="n">dp_1</span>
+</code></pre></div>
+<h3 id="_3">凑零钱问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>先看下题⽬：给你 k 种⾯值的硬币，⾯值分别为 c1, c2 ... ck ，每种硬 币的数量⽆限，再给⼀个总⾦额 amount ，问你<strong>最少</strong>需要⼏枚硬币凑出这个⾦额，如果不可能凑出，算法返回 -1 。</p>
+<h4 id="_4">自顶向下思考<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>思考步骤：</p>
+<ol>
+<li>
+<p>此问题包含<strong>最优子结构</strong>的特点，并且子问题之间相互独立，所以是动态规划的问题。</p>
+</li>
+<li>
+<p>定义正确的dp函数，<code>dp(amount)=n</code>表示最少需要n个硬币凑出amount金额的钱，这个式子其实也很好列出来，题干中只有amount这一个变量，我们要求解的就是最少的硬币数，设为n，这样就很容易定义出dp函数了。</p>
+</li>
+<li>
+<p>列出状态转移方程：
+   $$
+   dp(amount)=min(dp(amount-c1)+1, dp(amount-c2)+1, ...)
+   $$</p>
+</li>
+<li>
+<p>注意边界条件，如果不能凑出的情况就是当amount比其中最小的硬币面额还要小并且不为0。</p>
+</li>
+</ol>
+<p>代码实现如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">def</span> <span class="nf">min_coin_num</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># 边界条件</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 金额为0，不需要硬币了</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 金额为负了，当前递归子节点无解</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+            <span class="n">sub_problem</span> <span class="o">=</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">coin</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_problem</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">sub_problem</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span> <span class="k">if</span> <span class="n">ret</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</code></pre></div>
+<p>画出递归树后可以看到，依然存在冗余的计算，我们可以对此稍作优化，用一个备忘录记录已经计算过的结果，下次用到时，就不需要重复计算了。</p>
+<p><img alt="" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210319113207145.png" /></p>
+<p>优化后的代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="c1"># 备忘录优化</span>
+<span class="k">def</span> <span class="nf">min_coin_num</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+        <span class="c1"># 边界条件</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 金额为0，不需要硬币了</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 金额为负了，当前递归子节点无解</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+            <span class="n">sub_problem</span> <span class="o">=</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">coin</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_problem</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">sub_problem</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># 记入备忘录</span>
+        <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span> <span class="k">if</span> <span class="n">ret</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</code></pre></div>
+<p>这里是用数组当备忘录，实际用字典也是一样。</p>
+<h4 id="_5">自底向上思考<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>一般自顶向下需要用到递归，思路是将最终的问题递归分解为一个一个的子问题，同样我们也可以自底向上计算出结果，从最初的情况向上经历有限次的迭代，最终得到结果。</p>
+<p>代码实现：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="c1"># 自底向上</span>
+<span class="k">def</span> <span class="nf">min_coin_num</span><span class="p">(</span><span class="n">coins</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)]</span> <span class="o">*</span> <span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="n">coins</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">coin</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">coin</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>
+<h3 id="_6">方法总结<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>适用情形：最优子问题，并且子问题互相独立。</p>
+<p>思考方向：1.自顶向下递归；2.自底向上有限迭代。</p>
+<p>状态转移方程：一般形式为 <span class="arithmatex">\(dp(变量1，变量2，...)=目标结果\)</span></p>
+<p>优化方式：数组或者字典作为备忘录记录中间子问题的结果，避免重复计算。</p>
+<h2 id="_7">经典系列问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">股票买卖<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="i">买卖股票Ⅰ<a class="headerlink" href="#i" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210320212347204.png" alt="image-20210320212347204" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>目标是要求得最大利润，可见包含最优子问题的特点，同时很显而易见，这些子问题是互斥的，所以可以往动态规划方面考虑。</p>
+<p>状态转移方程：</p>
+<p>可以先列出dp的关系和利润的关系方程，<span class="arithmatex">\(dp(n, status)=profit\)</span>，n表示是第几天，status表示当天的持仓状态，有两种持仓和未持仓。状态转移方程则为：<span class="arithmatex">\(dp(n,0)=max(dp(n-1,0), dp(n-1,1)+prices[n])\)</span>和<span class="arithmatex">\(dp(n,1)=max(dp(n-1,1),-prices[n])\)</span>。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<p><strong>自顶向下，暴力递归</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="c1"># 自顶向下</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+            <span class="c1"># base case</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 今日未持有股票</span>
+                <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+            <span class="c1"># 今日持有股票</span>
+            <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>执行结果：</p>
+<p><img alt="image-20210321135151757" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321135151757.png" /></p>
+<p><strong>自顶向下，备忘录优化</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># 自顶向下</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">memo</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">))]</span>
+        <span class="n">memo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+            <span class="c1"># base case</span>
+            <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">status</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">status</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 今日未持有股票</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># 今日持有股票</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+                <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">status</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span>
+                <span class="k">return</span> <span class="n">ret</span>
+
+        <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>执行结果：</p>
+<p><img alt="image-20210321163059165" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321163059165.png" /></p>
+<p>可以看到，优化后虽然提交结果垫底，但是已经不超时了。</p>
+<p><strong>自底向上，有限迭代</strong></p>
+<p>除了从结果（也就是递归树的根节点）出发，我们还可以从base case出发，有限次的迭代求出最终的结果。</p>
+<p>代码实现：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="c1"># 自底向上</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>执行结果：</p>
+<p><img alt="image-20210321222246549" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321222246549.png" /></p>
+<p><strong>自底向上，空间优化</strong></p>
+<p>可以发现每次的运行结果都只跟前一次的有关，dp数组可以简化为两个变量</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="c1"># 自底向上，空间优化</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="n">dp_i_0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dp_i_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_1</span><span class="p">,</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp_i_0</span>
+</code></pre></div>
+<p>执行结果：</p>
+<p><img alt="image-20210321223108555" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321223108555.png" /></p>
+<h4 id="ii"><a id="stock2">股票买卖Ⅱ</a><a class="headerlink" href="#ii" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321223632299.png" alt="image-20210321223632299" style="zoom:150%;" /></p>
+<p>简单来说就是在上题的基础上，不限制买卖股票的次数，股票交易次数为无限次。</p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>解题思路基本跟上题一致，不同的是状态转移方程中的<span class="arithmatex">\(dp(n,1)\)</span>改为<span class="arithmatex">\(dp(n,1)=max(dp(n-1,1),dp(n-1,0)-prices[n])\)</span></p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="n">dp_i_0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dp_i_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_1</span><span class="p">,</span> <span class="n">dp_i_0</span><span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp_i_0</span>
+</code></pre></div>
+<p><strong>提交结果</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321224937443.png" alt="image-20210321224937443"  /></p>
+<h4 id="iii">股票买卖Ⅲ<a class="headerlink" href="#iii" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210321225205185.png" alt="image-20210321225205185" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>本题将买卖次数限定为两次，那么就需要将当天未持仓和当天持仓这两种状态再跟买卖的次数结合起来，所以一共有了四种状态：</p>
+<ul>
+<li>买过一次，当前为持仓状态</li>
+<li>卖过一次，当前为未持仓状态</li>
+<li>买过两次，当前为持仓状态</li>
+<li>卖过两次，当前为未持仓状态</li>
+</ul>
+<p>状态转移方程就变为：</p>
+<ul>
+<li><span class="arithmatex">\(buy1=max(buy1,-prices[i])\)</span></li>
+<li><span class="arithmatex">\(sell1=max(sell1,buy1+prices[i]\)</span></li>
+<li><span class="arithmatex">\(buy2=max(buy2,sell1-prices[i])\)</span></li>
+<li><span class="arithmatex">\(sell2=max(sell2,buy2+prices[i])\)</span></li>
+</ul>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="c1"># 初始状态设置</span>
+        <span class="n">buy1</span> <span class="o">=</span> <span class="n">buy2</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sell1</span> <span class="o">=</span> <span class="n">sell2</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">buy1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">buy1</span><span class="p">,</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">sell1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sell1</span><span class="p">,</span> <span class="n">buy1</span><span class="o">+</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">buy2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">buy2</span><span class="p">,</span> <span class="n">sell1</span><span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">sell2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sell2</span><span class="p">,</span> <span class="n">buy2</span><span class="o">+</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">sell2</span>
+</code></pre></div>
+<p><strong>提交结果</strong>：</p>
+<p><img alt="image-20210322112640640" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322112640640.png" /></p>
+<h4 id="iv">股票买卖Ⅳ<a class="headerlink" href="#iv" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322112751889.png" alt="image-20210322112751889" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>此题将最大交易次数作为变量k输入，那么状态转移方程就需要将k也考虑进去：</p>
+<p><span class="arithmatex">\(buy[i][k]=max(buy[i-1][k], sell[i-1][k-1]-prices[i])\)</span></p>
+<p><span class="arithmatex">\(sell[i][k]=max(sell[i-1][k], buy[i-1][k]+prices[i])\)</span></p>
+<p>同时需要注意考虑边界条件。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prices</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="c1"># 初始化，第一天买的都为-prices[0]</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">k</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+                <span class="c1"># 如果是第一次买直接就是-prices[i]</span>
+                <span class="c1"># buy_j=max(buy_j, sell_j-1 - price)</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="c1"># sell_j=max(sell_j,buy_j + price)</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p>提交结果：</p>
+<p><img alt="image-20210322124113820" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322124113820.png" /></p>
+<h4 id="_9">股票买卖（冷冻期）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322124230117.png" alt="image-20210322124230117" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>有了冷冻期，那么买入时候的最大利润就是跟前两天的卖出利润有关，这里没有对买卖次数做限制，那么可以在<a href="#stock2">股票买卖Ⅱ</a>的基础上修改，状态转移方程就可以更改为：</p>
+<p><span class="arithmatex">\(dp[n][0]=max(dp[n-1][0], dp[n-2][1]+prices[i])\)</span></p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="c1"># 未持有</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># 持有</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>提交结果：</p>
+<p><img alt="image-20210322144548047" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322144548047.png" /></p>
+<h4 id="_10">股票买卖（手续费）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322144643359.png" alt="image-20210322144643359" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>跟股票买卖Ⅱ基本一致，只是将fee也算到成本中去。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">fee</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+        <span class="n">dp_i_0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dp_i_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_0</span><span class="p">,</span> <span class="n">dp_i_1</span> <span class="o">+</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">fee</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_i_1</span><span class="p">,</span> <span class="n">dp_i_0</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dp_i_0</span>
+</code></pre></div>
+<p><strong>提交结果</strong>：</p>
+<p><img alt="image-20210322144339159" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322144339159.png" /></p>
+<h3 id="_11">打家劫舍<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h4 id="i_1">打家劫舍Ⅰ<a class="headerlink" href="#i_1" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322170157343.png" alt="image-20210322170157343" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>基本上涉及到最优子问题的题目，都可以考虑使用动态优化。根据题意可以先列出结果方程：<span class="arithmatex">\(dp(n)=amount\)</span>，方程含义为偷到第n间屋子偷窃到的最大金额为amount。接着可以列出状态转移方程<span class="arithmatex">\(dp(n)=max(dp(n-2)+nums[n],dp[n-1])\)</span></p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dp_pre_1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 前一间</span>
+        <span class="n">dp_pre_2</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 前两间</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp_i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_pre_1</span><span class="p">,</span> <span class="n">dp_pre_2</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">dp_pre_2</span> <span class="o">=</span> <span class="n">dp_pre_1</span>
+            <span class="n">dp_pre_1</span> <span class="o">=</span> <span class="n">dp_i</span>
+        <span class="k">return</span> <span class="n">dp_pre_1</span>
+</code></pre></div>
+<p><strong>提交结果</strong>：</p>
+<p><img alt="image-20210322184843150" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322184843150.png" /></p>
+<h4 id="ii_1">打家劫舍Ⅱ<a class="headerlink" href="#ii_1" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322184951704.png" alt="image-20210322184951704" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>跟上题相比，列表首尾的房子也是相邻的。实际上我们可以将这个问题简化为nums[:-1]和nums[1:]两个子问题的结果。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rob</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rob</span><span class="p">(</span><span class="n">nums</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">def</span> <span class="nf">_rob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dp_pre_1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 前一间</span>
+        <span class="n">dp_pre_2</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 前两间</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">dp_i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp_pre_1</span><span class="p">,</span> <span class="n">dp_pre_2</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">dp_pre_2</span> <span class="o">=</span> <span class="n">dp_pre_1</span>
+            <span class="n">dp_pre_1</span> <span class="o">=</span> <span class="n">dp_i</span>
+        <span class="k">return</span> <span class="n">dp_pre_1</span>
+</code></pre></div>
+<p><strong>提交结果</strong>：</p>
+<p><img alt="image-20210322185835942" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322185835942.png" /></p>
+<h4 id="iii_1">打家劫舍Ⅲ<a class="headerlink" href="#iii_1" title="Permanent link">&para;</a></h4>
+<p><strong>题目描述</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322194921205.png" alt="image-20210322194921205" style="zoom:150%;" /></p>
+<p><strong>解题思路</strong></p>
+<blockquote>
+<p>房屋相连的方式已经变为树形结构了，看到这种结构想到树的遍历，所以使用自顶向下递归的方式是比较容易实现的。变量结果等式可以先列出：<span class="arithmatex">\(dp(node)=not\_rob,is\_rob\)</span>，含义是当前节点为node时，返回偷当前node和不偷当前node时的最高金额。</p>
+<p>状态转移方程为：
+$$
+dp(node)=max(dp(node.left)) + max(dp(node.right)), \
+node.val + dp(node.left)[0] + dp(node.right)[0]
+$$
+右边分为两个部分，就分别代表了<span class="arithmatex">\(not\_rob\)</span>和<span class="arithmatex">\(is\_rob\)</span>。</p>
+</blockquote>
+<p><strong>代码实现</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rob</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_rob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rob</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rob</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="c1"># 到每一个节点，都有偷或者不偷两种状态</span>
+        <span class="c1"># 如果偷当前节点</span>
+        <span class="n">is_rob</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># 如果不偷当前节点</span>
+        <span class="n">not_rob</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">not_rob</span><span class="p">,</span><span class="n">is_rob</span>
+</code></pre></div>
+<p><strong>提交结果</strong>：</p>
+<p><img alt="image-20210322201931331" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322201931331.png" /></p>
+<h2 id="_12">一般练习题<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="_13"><a href="https://leetcode-cn.com/problems/triangle/">三角形最小路径和</a><a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p><strong>题目描述:</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/20210320203509.png" style="zoom: 150%;" /></p>
+<p><strong>解题思路：</strong></p>
+<blockquote>
+<p>pass</p>
+</blockquote>
+<p><strong>代码实现：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">minimumTotal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">triangle</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># dp[i][j]表示到坐标[i,j]的点的最小路径</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 最后一列</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>提交结果：</strong></p>
+<p><img alt="image-20210322230953811" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210322230953811.png" /></p>
+<h3 id="_14"><a href="https://leetcode-cn.com/problems/count-numbers-with-unique-digits/">计算各个位数不同的数字个数</a><a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p><strong>题目描述：</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210323101615046.png" alt="image-20210323101615046" style="zoom:150%;" /></p>
+<p><strong>解题思路：</strong></p>
+<blockquote>
+<p>可以依次写出前几个的结果,看是否能得出转移方程:<br />
+<span class="arithmatex">\(dp[0]=1\)</span>       <br />
+<span class="arithmatex">\(dp[1]=dp[0]+9\)</span>     <br />
+<span class="arithmatex">\(dp[2]=dp[1]+9*9\)</span>   <br />
+<span class="arithmatex">\(dp[3]=dp[2]+9*9*8\)</span> <br />
+根据上面的式子,可以归纳出动态转移方程:
+$$
+\tag{n&gt;=2}
+dp[n]=dp[n-1]+9*\prod_{i=0}^{n-2} {9-i}
+$$
+当然要注意n的取值范围.</p>
+</blockquote>
+<p><strong>代码实现:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">countNumbersWithUniqueDigits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+        <span class="n">dp_i</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="mi">9</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">temp</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">9</span> <span class="o">-</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">dp_i</span> <span class="o">+=</span> <span class="n">temp</span>
+        <span class="k">return</span> <span class="n">dp_i</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">countNumbersWithUniqueDigits</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>提交结果：</strong></p>
+<p><img alt="image-20210323110125277" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210323110125277.png" /></p>
+<h3 id="_15"><a href="https://leetcode-cn.com/problems/integer-break/">整数拆分</a><a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p><strong>题目描述：</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210323110612534.png" alt="image-20210323110612534" style="zoom:150%;" /></p>
+<p><strong>解题思路：</strong></p>
+<blockquote>
+<p>设<span class="arithmatex">\(dp[i]\)</span>为将正整数<span class="arithmatex">\(i\)</span>拆分为至少两个正整数的和时的最大乘积，那么我们可以得到状态转移方程：</p>
+<p><span class="arithmatex">\(dp[i]=max(dp[i-j] \times j, (i-j) \times j)\)</span>，<span class="arithmatex">\((0&lt;j&lt;i)\)</span></p>
+<p>方程的含义就是，要求解<span class="arithmatex">\(i\)</span>的最大乘积，可以将<span class="arithmatex">\(i\)</span>拆分成两部分<span class="arithmatex">\(j\)</span>和<span class="arithmatex">\(i-j\)</span>,那么此时<span class="arithmatex">\(dp[i]\)</span>就是<span class="arithmatex">\(dp[i-j]\times j\)</span>和<span class="arithmatex">\((i-j)*j\)</span>中的较大值，其中<span class="arithmatex">\(j\)</span>的取值范围为<span class="arithmatex">\((0,i)\)</span></p>
+<p>我们知道,等分的时候乘积会是最大的,假设<span class="arithmatex">\(n=a\times x\)</span>,<span class="arithmatex">\(a\)</span>是分成的份数,那么我们要求的<span class="arithmatex">\(y=x^{\frac n x}\)</span>的最大值,其实就是求<span class="arithmatex">\(y=x^{\frac 1 x}\)</span>的最大值,根据数学的求导可以得出此时<span class="arithmatex">\(x\)</span>应该为<span class="arithmatex">\(e\)</span>(<span class="arithmatex">\(e\approx 2.7\)</span>),因为<span class="arithmatex">\(x\)</span>为正整数,所以<span class="arithmatex">\(x\)</span>可以为2或者3,落实到优化,<span class="arithmatex">\(j\)</span>的取值范围可以只考虑2和3的情况.</p>
+</blockquote>
+<p><strong>代码实现:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">integerBreak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>提交结果：</strong></p>
+<p><img alt="image-20210323114714844" src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210323114714844.png" /></p>
+<h3 id="_16"><a href="https://leetcode-cn.com/problems/ones-and-zeroes/">一和零</a><a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><strong>题目描述：</strong></p>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/image-20210323114802878.png" alt="image-20210323114802878" style="zoom:150%;" /></p>
+<p><strong>解题思路:</strong></p>
+<blockquote>
+<p>设<span class="arithmatex">\(dp[i][j]\)</span>为<span class="arithmatex">\(i\)</span>个0和<span class="arithmatex">\(j\)</span>个1能拼出存在于数组<span class="arithmatex">\(s\)</span>中的最大数量,我们可以得到动态转移方程:
+$$
+dp[i][j]=max(1+dp[i-cost_zeros(k)][j-cost_ones(k)])
+$$
+其中<span class="arithmatex">\(i&gt;=cost\_zeros(k),j&gt;cost\_ones(k)\)</span></p>
+<p>这个方程要表达的意思就是,假定当前字符串为k,如果能从k到<span class="arithmatex">\(dp[i][j]\)</span>,那么<span class="arithmatex">\(dp[i][j]\)</span>就等于k处最大数量加1,</p>
+</blockquote>
+<p><img alt="" src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/一和零方法1.gif" /></p>
+<p>代码实现:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findMaxForm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">strs</span><span class="p">:</span>
+            <span class="n">zeros</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+            <span class="n">ones</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">zeros</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ones</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">zeros</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="n">ones</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="k"><a href="https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/">K 站中转内最便宜的航班</a><a class="headerlink" href="#k" title="Permanent link">&para;</a></h3>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/20210325225741.png" style="zoom:150%;" /></p>
+<p>解题思路:</p>
+<blockquote>
+<p>设<span class="arithmatex">\(dp[k][d]\)</span>为经过<span class="arithmatex">\(k\)</span>次转机到达目的地<span class="arithmatex">\(d\)</span>的最最少费用,那么动态转移方程为:
+$$
+dp[k][d]=min(dp[k][d], dp[k-1][s]+p)
+$$
+其中<span class="arithmatex">\(s\)</span>为出发地,<span class="arithmatex">\(p\)</span>为<span class="arithmatex">\(s\)</span>到<span class="arithmatex">\(d\)</span>的距离,也就是说当前<span class="arithmatex">\(dp[k][d]\)</span>等于前一次<span class="arithmatex">\(dp[k-1][s]+p\)</span>中的最小的一个</p>
+</blockquote>
+<p>代码实现:</p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<p>优化代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">findCheapestPrice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">flights</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+        <span class="c1"># 使用一个2*n的矩阵是为了优化空间,不然也可以使用k*n</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="c1"># 初始化当前src和前提个src的值,都为0</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">src</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">src</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">flights</span><span class="p">:</span>
+                <span class="c1"># 因为只有src是有值的,所以最开始只有当s=src的时候,d的值才会更新</span>
+                <span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="o">~</span><span class="n">k</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">K</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">][</span><span class="n">dst</span><span class="p">]</span> <span class="k">if</span> <span class="n">dp</span><span class="p">[</span><span class="n">K</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">][</span><span class="n">dst</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>
+<h3 id="_17"><a href="https://leetcode-cn.com/problems/matrix-block-sum/">矩阵区域和</a><a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/20210326113343.png" style="zoom:150%;" /></p>
+<p><strong>方法1:动态规划</strong></p>
+<p>代码实现:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">matrixBlockSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mat</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>  <span class="c1"># 行</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 列</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">jrange</span> <span class="o">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">K</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">)]:</span>
+                        <span class="n">answer</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">jrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">jrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">irange</span> <span class="o">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">K</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="n">add_item</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">m</span> <span class="k">else</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">K</span><span class="p">][</span><span class="n">jrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">jrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+                    <span class="n">minus_item</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">i</span> <span class="o">-</span> <span class="n">K</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="n">irange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">jrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">jrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+                    <span class="n">answer</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">add_item</span> <span class="o">-</span> <span class="n">minus_item</span>
+        <span class="k">return</span> <span class="n">answer</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">matrixBlockSum</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]],</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>方法2:二维前缀和</strong></p>
+<p>代码实现:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">使用前缀和</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">matrixBlockSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mat</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>  <span class="c1"># 行</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 列</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+        <span class="c1"># 求出前缀和</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">answer</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">answer</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">answer</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="c1"># 处理边界问题</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">answer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span>
+
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> \
+                            <span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">K</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> \
+                            <span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> \
+                            <span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">K</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">K</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ans</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">matrixBlockSum</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]],</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="_18"><a href="https://leetcode-cn.com/problems/least-operators-to-express-number/">表示数字的最少运算符</a><a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p><img src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602484381309.png" alt="1602484381309" style="zoom:200%;" /></p>
+<p>代码实现：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">leastOpsExpressTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
+        <span class="n">cost</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+            <span class="c1"># i表示是x的几次幂，target是当前要得到的目标数</span>
+            <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">39</span><span class="p">:</span> 
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+            <span class="n">t</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</code></pre></div>
+<h3 id="_19"><a href="https://leetcode-cn.com/problems/unique-substrings-in-wraparound-string/">环绕字符串中唯一的子字符串</a><a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p><img src="https://raw.githubusercontent.com/fadeawaylove/article-images/master/1602489445540.png" alt="1602489445540" style="zoom:150%;" /></p>
+<p>代码实现：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用hashmap</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findSubstringInWraproundString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span> <span class="o">+</span> <span class="n">p</span>
+        <span class="c1"># len_mapper为以当前字符结尾的最长子串的长度</span>
+        <span class="n">len_mapper</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">):</span>
+                <span class="n">w</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">len_mapper</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">len_mapper</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">w</span><span class="p">)</span>
+        <span class="c1"># print(dict(len_mapper))</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">len_mapper</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</code></pre></div>
+<h3 id="_20"><a href="https://leetcode-cn.com/problems/2-keys-keyboard/">只有两个键的键盘</a><a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p><img src="https://gitee.com/fadeaway_dai/picgo_images/raw/master/img/20210326114927.png" style="zoom:150%;" /></p>
+<p>思路：</p>
+<blockquote>
+<p>将所有操作分成以 copy 为首的多组，形如 (copy, paste, ..., paste)，再使用 C 代表 copy，P 代表 paste。例如操作 <code>CPPCPPPPCP</code> 可以分为<code>[CPP][CPPPP][CP]</code> 三组。</p>
+<p>假设每组的长度为 g_1, g_2, ...。完成第一组操作后，字符串有 g_1 个 A，完成第二组操作后字符串有 g_1 * g_2 个 A。当完成所有操作时，共有 g_1 * g_2 * ... * g_n 个 'A'。</p>
+<p>我们最终想要 N = g_1 * g_2 * ... * g_n 个 A。如果 g_i 是合数，存在 g_i = p * q，那么这组操作可以分解为两组，第一组包含 1 个 C 和 p-1 个 P，第二组包含 1 个 C 和 q-1 个 P。</p>
+<p>现在证明这种分割方式使用的操作最少。原本需要 <span class="arithmatex">\(pq\)</span> 步操作，分解后需要 <span class="arithmatex">\(p+q\)</span> 步。因为 <span class="arithmatex">\(p+q &lt;= pq\)</span>，等价于 <span class="arithmatex">\(1 &lt;= (p-1)(q-1)\)</span>，当 <span class="arithmatex">\(p &gt;= 2\)</span> 且 <span class="arithmatex">\(q &gt;= 2\)</span> 时上式永远成立。</p>
+</blockquote>
+<p>代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">minSteps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># 进行质因数分解</span>
+        <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">n</span> <span class="o">//=</span> <span class="n">i</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="n">i</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../%E9%80%92%E5%BD%92/" title="递归" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                递归
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="回溯算法" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                回溯算法
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['search.highlight', 'header.autohide', 'instant', 'navigation.expand', 'navigation.instant', 'tabs', 'toc.autohide'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../mathjaxhelper.js"></script>
+      
+    
+  </body>
+</html>
