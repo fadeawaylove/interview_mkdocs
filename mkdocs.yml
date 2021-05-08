@@ -1,12 +1,12 @@
 # Project information
-site_name: Interview notes
+site_name: Study notes
 site_url: https://fadeawaylove.github.io/interview_mkdocs
 site_author: 呆瓜
 site_description: >-
   一个学习知识的记录
 
 # Repository
-repo_name: interview_mkdocs
+repo_name: Study notes
 repo_url: https://github.com/fadeawaylove/interview_mkdocs
 
 theme:
@@ -64,6 +64,9 @@ plugins:
 nav:
   - 主页:
       - 简介: index.md
+  - Python:
+      - python基础: python/基础.md
+      - python技巧: python/高级.md
   - 书籍:
       - Redis: books/redis.md
   - 算法:
@@ -84,9 +87,7 @@ nav:
       - 我是你爸爸:
           - 1: posts/index.md
           - 2: posts/index.md
-  - Python:
-      - python基础: python/基础.md
-      - python技巧: python/技巧.md
+
   - 面试:
       - 面试题/网络.md
       - 面试题/算法.md
